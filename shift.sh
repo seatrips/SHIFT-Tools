@@ -23,7 +23,7 @@ PIDS_DIR="$(pwd)/pids"
 DB_NAME="$(grep "database" $SHIFT_CONFIG | cut -f 4 -d '"')"
 DB_USER=$USER
 DB_PASS="$(grep '"password"' $SHIFT_CONFIG | cut -f 4 -d '"')"
-DB_DATA="$(pwd)/pgsql/data"
+DB_DATA="/var/lib/postgresql/9.6/main"
 DB_LOG_FILE="$LOGS_DIR/pgsql.log"
 DB_SNAPSHOT="blockchain.db.gz"
 DB_DOWNLOAD=Y
@@ -159,41 +159,41 @@ coldstart_lisk() {
 }
 
 start_postgresql() {
-  if pgrep -x "postgres" &> /dev/null; then
-    echo "√ Postgresql is running."
-  else
-    pg_ctl -D $DB_DATA -l $DB_LOG_FILE start &> /dev/null
-    sleep 1
-    if [ $? != 0 ]; then
-      echo "X Failed to start Postgresql."
-      exit 1
-    else
-      echo "√ Postgresql started successfully."
-    fi
-  fi
+#  if pgrep -x "postgres" &> /dev/null; then
+#    echo "√ Postgresql is running."
+#  else
+#    pg_ctl -D $DB_DATA -l $DB_LOG_FILE start &> /dev/null
+#    sleep 1
+#    if [ $? != 0 ]; then
+#      echo "X Failed to start Postgresql."
+#      exit 1
+#    else
+#      echo "√ Postgresql started successfully."
+#    fi
+#  fi
 }
 
 stop_postgresql() {
-  stopPg=0
-  if ! pgrep -x "postgres" &> /dev/null; then
-    echo "√ Postgresql is not running."
-  else
-   while [[ $stopPg < 5 ]] &> /dev/null; do
-      pg_ctl -D $DB_DATA -l $DB_LOG_FILE stop &> /dev/null
-      if [ $? == 0 ]; then
-        echo "√ Postgresql stopped successfully."
-        break
-      else
-        echo "X Postgresql failed to stop."
-      fi
-      sleep .5
-      stopPg=$[$stopPg+1]
-    done
-    if pgrep -x "postgres" &> /dev/null; then
-      pkill -x postgres -9  &> /dev/null;
-      echo "√ Postgresql Killed."
-    fi
-  fi
+#  stopPg=0
+#  if ! pgrep -x "postgres" &> /dev/null; then
+#    echo "√ Postgresql is not running."
+#  else
+#   while [[ $stopPg < 5 ]] &> /dev/null; do
+#      pg_ctl -D $DB_DATA -l $DB_LOG_FILE stop &> /dev/null
+#      if [ $? == 0 ]; then
+#        echo "√ Postgresql stopped successfully."
+#        break
+#      else
+#        echo "X Postgresql failed to stop."
+#      fi
+#      sleep .5
+#      stopPg=$[$stopPg+1]
+#    done
+#    if pgrep -x "postgres" &> /dev/null; then
+#      pkill -x postgres -9  &> /dev/null;
+#      echo "√ Postgresql Killed."
+#    fi
+#  fi
 }
 
 snapshot_shift() {
