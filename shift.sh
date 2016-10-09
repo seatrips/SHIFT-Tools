@@ -127,7 +127,7 @@ download_blockchain() {
 }
 
 restore_blockchain() {
-  if [ ! -f "$DB_SNAPSHOT" ]; then
+  if [ -f "$DB_SNAPSHOT" ]; then
 	echo "Restoring blockchain with $DB_SNAPSHOT"
 	gunzip -fcq $DB_SNAPSHOT | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
 	if [ $? != 0 ]; then
