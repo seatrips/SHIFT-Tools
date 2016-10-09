@@ -103,14 +103,15 @@ download_blockchain() {
   if [ "$DB_DOWNLOAD" = "Y" ]; then
     rm -f $DB_SNAPSHOT
     if [ "$BLOCKCHAIN_URL" = "" ]; then
-      #BLOCKCHAIN_URL="https://shift-snap.vipertkd.com/"
 	  echo "√ Rebuilding from empty database."
     else
-		echo "================================================================================================="
-		echo "WARNING!!! The SHIFT team does NOT recommend using 3rd-party or community snapshot!!!"
-		echo "You should rebuild from an empty database or use your OWN snapshot to ensure decentralization."
-		echo "*** USE AT YOUR OWN RISK!!! ***"
-		echo "================================================================================================="
+		echo " "
+		echo "=================================================================================================="
+		echo "= WARNING!!! The SHIFT team does NOT recommend using 3rd-party or community snapshot!!!          ="
+		echo "= You should rebuild from an empty database or use your OWN snapshot to ensure decentralization. ="
+		echo "= ********* USE AT YOUR OWN RISK!!! *********                                                    ="
+		echo "=================================================================================================="
+		echo " "
 		echo "√ Downloading $DB_SNAPSHOT from $BLOCKCHAIN_URL"
 		curl --progress-bar -o $DB_SNAPSHOT "$BLOCKCHAIN_URL/$DB_SNAPSHOT"
 		if [ $? != 0 ]; then
