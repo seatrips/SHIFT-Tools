@@ -159,9 +159,9 @@ coldstart_lisk() {
 }
 
 start_postgresql() {
-#  if pgrep -x "postgres" &> /dev/null; then
-#    echo "√ Postgresql is running."
-#  else
+  if pgrep -x "postgres" &> /dev/null; then
+    echo "√ Postgresql is running."
+  else
 #    pg_ctl -D $DB_DATA -l $DB_LOG_FILE start &> /dev/null
 #    sleep 1
 #    if [ $? != 0 ]; then
@@ -171,13 +171,17 @@ start_postgresql() {
 #      echo "√ Postgresql started successfully."
 #    fi
 #  fi
+
+      echo "X Postgresql not started. Please start Postgresql"
+	  exit 1
+    fi
 }
 
 stop_postgresql() {
 #  stopPg=0
-#  if ! pgrep -x "postgres" &> /dev/null; then
-#    echo "√ Postgresql is not running."
-#  else
+  if ! pgrep -x "postgres" &> /dev/null; then
+    echo "√ Postgresql is not running."
+  else
 #   while [[ $stopPg < 5 ]] &> /dev/null; do
 #      pg_ctl -D $DB_DATA -l $DB_LOG_FILE stop &> /dev/null
 #      if [ $? == 0 ]; then
@@ -194,6 +198,8 @@ stop_postgresql() {
 #      echo "√ Postgresql Killed."
 #    fi
 #  fi
+    echo "X Postgresql is still running."
+fi
 }
 
 snapshot_shift() {
