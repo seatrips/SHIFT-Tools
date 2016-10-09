@@ -2,14 +2,16 @@
 VERSION="0.0.1"
 
 echo "================================================================"
-echo "= shift.sh v$VERSION -> ported to SHIFT from lisk.sh by ViperTKD  ="
-echo "= Please consider voting for me if you find it useful!         ="
+echo "= shift.sh v$VERSION                                              ="
+echo "= Original lisk.sh ported to SHIFT                             ="
+echo "= by ViperTKD (https://github.com/viper-tkd)                   ="
+echo "= Please consider VOTING for ME if you find it useful!         ="
 echo "=                                                              ="
-echo "= Original contributors:                                       ="
-echo "= 	- Oliver Beddows (https://github.com/karmacoma)          ="
-echo "=		- Isabella (https://github.com/Isabello)                 ="
+echo "= Original contributors on Lisk:                               ="
+echo "=     - Oliver Beddows (https://github.com/karmacoma)          ="
+echo "=     - Isabella (https://github.com/Isabello)                 ="
 echo "=                                                              ="
-echo "= 	Please consider voting for them on Lisk!                 ="
+echo "=     Please consider voting for them on Lisk!                 ="
 echo "=                                                              ="
 echo "================================================================"
 echo " "
@@ -125,13 +127,15 @@ download_blockchain() {
 }
 
 restore_blockchain() {
-  echo "Restoring blockchain with $DB_SNAPSHOT"
-  gunzip -fcq $DB_SNAPSHOT | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
-  if [ $? != 0 ]; then
-    echo "X Failed to restore blockchain."
-    exit 1
-  else
-    echo "√ Blockchain restored successfully."
+  if [ ! -f "$DB_SNAPSHOT" ]; then
+	echo "Restoring blockchain with $DB_SNAPSHOT"
+	gunzip -fcq $DB_SNAPSHOT | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
+	if [ $? != 0 ]; then
+		echo "X Failed to restore blockchain."
+		exit 1
+	else
+		echo "√ Blockchain restored successfully."
+	fi
   fi
 }
 
