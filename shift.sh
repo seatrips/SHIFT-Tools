@@ -1,4 +1,18 @@
 #!/bin/bash
+VERSION="0.0.1"
+
+echo "================================================================"
+echo "= shift.sh v$VERSION -> ported to SHIFT from lisk.sh by ViperTKD  ="
+echo "= Please consider voting for me if you find it useful!         ="
+echo "=                                                              ="
+echo "= Original contributors:                                       ="
+echo "= 	- Oliver Beddows (https://github.com/karmacoma)          ="
+echo "=		- Isabella (https://github.com/Isabello)                 ="
+echo "=                                                              ="
+echo "= 	Please consider voting for them on Lisk!                 ="
+echo "=                                                              ="
+echo "================================================================"
+echo " "
 
 cd "$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 . "$(pwd)/shared.sh"
@@ -23,8 +37,8 @@ PIDS_DIR="$(pwd)/pids"
 DB_NAME="$(grep "database" $SHIFT_CONFIG | cut -f 4 -d '"')"
 DB_USER=$USER
 DB_PASS="$(grep '"password"' $SHIFT_CONFIG | cut -f 4 -d '"')"
-DB_DATA="/var/lib/postgresql/9.6/main"
-DB_LOG_FILE="$LOGS_DIR/pgsql.log"
+#DB_DATA="/var/lib/postgresql/9.6/main"
+#DB_LOG_FILE="$LOGS_DIR/pgsql.log"
 DB_SNAPSHOT="blockchain.db.gz"
 DB_DOWNLOAD=Y
 DB_REMOTE=N
@@ -87,17 +101,24 @@ download_blockchain() {
   if [ "$DB_DOWNLOAD" = "Y" ]; then
     rm -f $DB_SNAPSHOT
     if [ "$BLOCKCHAIN_URL" = "" ]; then
-      BLOCKCHAIN_URL="https://shift-snap.vipertkd.com/"
-    fi
-    echo "√ Downloading $DB_SNAPSHOT from $BLOCKCHAIN_URL"
-    curl --progress-bar -o $DB_SNAPSHOT "$BLOCKCHAIN_URL/$DB_SNAPSHOT"
-    if [ $? != 0 ]; then
-      rm -f $DB_SNAPSHOT
-      echo "X Failed to download blockchain snapshot."
-      exit 1
+      #BLOCKCHAIN_URL="https://shift-snap.vipertkd.com/"
+	  echo "√ Rebuilding from empty database."
     else
-      echo "√ Blockchain snapshot downloaded successfully."
-    fi
+		echo "================================================================================================="
+		echo "WARNING!!! The SHIFT team does NOT recommend using 3rd-party or community snapshot!!!"
+		echo "You should rebuild from an empty database or use your OWN snapshot to ensure decentralization."
+		echo "*** USE AT YOUR OWN RISK!!! ***"
+		echo "================================================================================================="
+		echo "√ Downloading $DB_SNAPSHOT from $BLOCKCHAIN_URL"
+		curl --progress-bar -o $DB_SNAPSHOT "$BLOCKCHAIN_URL/$DB_SNAPSHOT"
+		if [ $? != 0 ]; then
+			rm -f $DB_SNAPSHOT
+			echo "X Failed to download blockchain snapshot."
+			exit 1
+		else
+			echo "√ Blockchain snapshot downloaded successfully."
+		fi
+	fi
   else
     echo -e "√ Using Local Snapshot."
   fi
@@ -128,7 +149,7 @@ autostart_cron() {
 
   crontab=$(cat <<-EOF
 	$crontab
-	@reboot $(command -v "bash") $(pwd)/sift.sh start > $(pwd)/cron.log 2>&1
+	@reboot $(command -v "bash") $(pwd)/shift.sh start > $(pwd)/cron.log 2>&1
 	EOF
   )
 
@@ -143,11 +164,11 @@ autostart_cron() {
   fi
 }
 
-coldstart_lisk() {
-  stop_lisk &> /dev/null
+coldstart_shift() {
+  stop_shift &> /dev/null
   stop_postgresql &> /dev/null
-  rm -rf $DB_DATA
-  pg_ctl initdb -D $DB_DATA &> /dev/null
+  #rm -rf $DB_DATA
+  #pg_ctl initdb -D $DB_DATA &> /dev/null
   sleep 2
   start_postgresql
   sleep 1
@@ -155,7 +176,7 @@ coldstart_lisk() {
   create_database
   populate_database
   autostart_cron
-  start_lisk
+  start_shift
 }
 
 start_postgresql() {
