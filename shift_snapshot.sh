@@ -1,25 +1,24 @@
 #!/bin/bash
 
-VERSION="0.0.1"
+VERSION="0.0.2"
 
-echo "================================================================"
-echo "= shift_snapshot.sh v$VERSION                                     ="
-echo "= Original lisk_snapshot.sh ported to SHIFT                    ="
-echo "= by ViperTKD (https://github.com/viper-tkd)                   ="
-echo "= Special thanks to Gr33nDrag0n for his contribution!          ="
-echo "=                                                              ="
-echo "= Please consider VOTING for ME if you find it useful!         ="
-echo "= Please consider VOTING for Gr33nDrag0n as well for his help! ="
-echo "=                                                              ="
-echo "= Original contributors on Lisk:                               ="
-echo "=     - Oliver Beddows (https://github.com/karmacoma)          ="
-echo "=     - Isabella (https://github.com/Isabello)                 ="
-echo "=     - Gr33nDrag0n (https://github.com/Gr33nDrag0n69)         ="
-echo "=                                                              ="
-echo "=     Please consider voting for them on Lisk!                 ="
-echo "=                                                              ="
-echo "================================================================"
+echo "========================================================================================="
+echo "= shift_snapshot.sh v$VERSION ported to SHIFT by ViperTKD - Please consider voting for me! ="
+echo "= Special thanks to Gr33nDrag0n!                                                        ="
+echo "= Please read the README.MD (https://github.com/viper-tkd/SHIFT-Tools)                  ="
+echo "========================================================================================="
 echo " "
+
+# ================================================================
+# = shift_snapshot.sh was ported to SHIFT from lisk_snapshot.sh  =
+# = Original on https://github.com/liskHQ                        =
+# =                                                              =
+# = Original contributors to lisk_snapshot.sh:                   =
+# =     - Oliver Beddows (https://github.com/karmacoma)          =
+# =     - Isabella (https://github.com/Isabello)                 =
+# =     - Gr33nDrag0n (https://github.com/Gr33nDrag0n69)         =
+# =                                                              =
+# ================================================================
 
 # Begin Variable Declaration and argument parsing
 ###############################################################################
@@ -39,7 +38,9 @@ BACKUP_LOCATION="$(pwd)/backups"
 
 DAYS_TO_KEEP="7"
 
-SNAPSHOT_ROUND="highest"
+#SNAPSHOT_ROUND="highest"
+SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
+SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
 
 GENERIC_COPY="N"
 
