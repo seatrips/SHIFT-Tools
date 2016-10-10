@@ -69,8 +69,8 @@ network() {
 }
 
 create_user() {
-  sudo su postgres -c 'dropuser --if-exists "$DB_USER" &> /dev/null'
-  sudo su postgres -c 'createuser --createdb "$DB_USER" &> /dev/null'
+  sudo su postgres -c "dropuser --if-exists "$DB_USER" &> /dev/null"
+  sudo su postgres -c "createuser --createdb "$DB_USER" &> /dev/null"
   psql -qd postgres -c "ALTER USER "$DB_USER" WITH PASSWORD '$DB_PASS';" &> /dev/null
   if [ $? != 0 ]; then
     echo "X Failed to create Postgresql user."
