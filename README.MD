@@ -56,6 +56,7 @@
 ================================================================
 ```
 
+
 Special thanks to Gr33nDrag0n for his snapshot guide on Lisk:
 
 https://forum.lisk.io/viewtopic.php?f=38&t=1053&p=8679#p8679
