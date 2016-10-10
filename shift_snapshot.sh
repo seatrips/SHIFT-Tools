@@ -87,7 +87,9 @@ parse_option() {
         if [ "$OPTARG" -gt "0" ] 2> /dev/null; then
           SNAPSHOT_ROUND=$OPTARG
         elif [ "$OPTARG" == "highest" ]; then
-          SNAPSHOT_ROUND=$OPTARG
+          #SNAPSHOT_ROUND=$OPTARG
+		  SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
+		  SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
         else
           echo "Snapshot flag must be a greater than 0 or set to highest"
           exit 1
@@ -148,7 +150,7 @@ echo -e "\nSnapshot verification process completed at "$(date)""
 echo -e "\nCleaning peers table"
 psql -d $TARGET_DB_NAME -c 'delete from peers;'  &> /dev/null
 
-HEIGHT="$(psql -d shift_snapshot -t -c 'select height from blocks order by height desc limit 1;' | xargs)"
+HEIGHT="$(psql -d "$TARGET_DB_NAME" -t -c 'select height from blocks order by height desc limit 1;' | xargs)"
 
 BACKUP_FULLPATH="${BACKUP_LOCATION}/${SOURCE_DB_NAME}_backup-${HEIGHT}.gz"
 
