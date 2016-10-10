@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="0.0.2"
+VERSION="0.0.3"
 
 echo "================================================================"
 echo "= shift.sh v$VERSION                                              ="
@@ -29,6 +29,14 @@ if [ "\$USER" == "root" ]; then
   echo "Error: SHIFT should not be run be as root. Exiting."
   exit 1
 fi
+
+# Checking for dependencies
+command -v "forever" > /dev/null 2>&1 || {
+	echo " ";
+	echo "Installing forever...";
+	echo " ";
+	sudo npm install forever -g; 
+}
 
 UNAME=$(uname)
 SHIFT_CONFIG=config.json
