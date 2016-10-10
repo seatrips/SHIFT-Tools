@@ -1,20 +1,21 @@
 #!/bin/bash
-VERSION="0.0.3"
+VERSION="0.0.4"
 
-echo "================================================================"
-echo "= shift.sh v$VERSION                                              ="
-echo "= Original lisk.sh ported to SHIFT                             ="
-echo "= by ViperTKD (https://github.com/viper-tkd)                   ="
-echo "= Please consider VOTING for ME if you find it useful!         ="
-echo "=                                                              ="
-echo "= Original contributors on Lisk:                               ="
-echo "=     - Oliver Beddows (https://github.com/karmacoma)          ="
-echo "=     - Isabella (https://github.com/Isabello)                 ="
-echo "=                                                              ="
-echo "=     Please consider voting for them on Lisk!                 ="
-echo "=                                                              ="
-echo "================================================================"
+echo "================================================================================"
+echo "= shift.sh v$VERSION ported to SHIFT by ViperTKD - Please consider voting for me! ="
+echo "= Please read the README.MD (https://github.com/viper-tkd/SHIFT-Tools)         ="
+echo "================================================================================"
 echo " "
+
+# ================================================================
+# = shift.sh was ported to SHIFT from lisk.sh                    =
+# = Original on https://github.com/liskHQ                        =
+# =                                                              =
+# = Original contributors to lisk.sh:                            =
+# =     - Oliver Beddows (https://github.com/karmacoma)          =
+# =     - Isabella (https://github.com/Isabello)                 =
+# =                                                              =
+# ================================================================
 
 cd "$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 . "$(pwd)/shared.sh"
