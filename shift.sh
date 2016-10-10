@@ -81,7 +81,7 @@ create_user() {
 }
 
 create_database() {
-  sudo su postgres -c 'dropdb --if-exists "$DB_NAME" &> /dev/null'
+  sudo su postgres -c "dropdb --if-exists "$DB_NAME" &> /dev/null"
   createdb "$DB_NAME" &> /dev/null
   if [ $? != 0 ]; then
     echo "X Failed to create Postgresql database."
