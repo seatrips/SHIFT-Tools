@@ -32,6 +32,7 @@
                                 ..,,,,,,,,,,,..                                
     
 	
+```
 ================================================================
 = shift.sh was ported to SHIFT from lisk.sh                    =
 = Original on https://github.com/liskHQ                        =
@@ -41,7 +42,8 @@
 =     - Isabella (https://github.com/Isabello)                 =
 =                                                              =
 ================================================================
-
+```
+```
 ================================================================
 = shift_snapshot.sh was ported to SHIFT from lisk_snapshot.sh  =
 = Original on https://github.com/liskHQ                        =
@@ -52,7 +54,9 @@
 =     - Gr33nDrag0n (https://github.com/Gr33nDrag0n69)         =
 =                                                              =
 ================================================================
+```
 
 Special thanks to Gr33nDrag0n for his snapshot guide on Lisk:
+
 https://forum.lisk.io/viewtopic.php?f=38&t=1053&p=8679#p8679
 
