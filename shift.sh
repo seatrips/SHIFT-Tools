@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="0.0.1"
+VERSION="0.0.2"
 
 echo "================================================================"
 echo "= shift.sh v$VERSION                                              ="
@@ -69,8 +69,8 @@ network() {
 }
 
 create_user() {
-  dropuser --if-exists "$DB_USER" &> /dev/null
-  createuser --createdb "$DB_USER" &> /dev/null
+  sudo su postgres -c 'dropuser --if-exists "$DB_USER" &> /dev/null'
+  sudo su postgres -c 'createuser --createdb "$DB_USER" &> /dev/null'
   psql -qd postgres -c "ALTER USER "$DB_USER" WITH PASSWORD '$DB_PASS';" &> /dev/null
   if [ $? != 0 ]; then
     echo "X Failed to create Postgresql user."
@@ -81,8 +81,8 @@ create_user() {
 }
 
 create_database() {
-  dropdb --if-exists "$DB_NAME" &> /dev/null
-  createdb "$DB_NAME" &> /dev/null
+  sudo su postgres -c 'dropdb --if-exists "$DB_NAME" &> /dev/null'
+  sudo su postgres -c 'createdb "$DB_NAME" &> /dev/null'
   if [ $? != 0 ]; then
     echo "X Failed to create Postgresql database."
     exit 1
