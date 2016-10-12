@@ -39,7 +39,7 @@
 =                                                              =
 = Original contributors to lisk.sh:                            =
 =     - Oliver Beddows (https://github.com/karmacoma)          =
-=     - Isabella (https://github.com/Isabello)                 =
+=     - Isabella Dell (https://github.com/Isabello)                 =
 =                                                              =
 ================================================================
 ```
@@ -50,7 +50,7 @@
 =                                                              =
 = Original contributors to lisk_snapshot.sh:                   =
 =     - Oliver Beddows (https://github.com/karmacoma)          =
-=     - Isabella (https://github.com/Isabello)                 =
+=     - Isabella Dell (https://github.com/Isabello)                 =
 =     - Gr33nDrag0n (https://github.com/Gr33nDrag0n69)         =
 =                                                              =
 ================================================================
