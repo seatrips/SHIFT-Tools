@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="0.0.2"
+VERSION="0.0.3"
 
 echo "========================================================================================="
 echo "= shift_snapshot.sh v$VERSION ported to SHIFT by ViperTKD - Please consider voting for me! ="
@@ -38,9 +38,9 @@ BACKUP_LOCATION="$(pwd)/backups"
 
 DAYS_TO_KEEP="7"
 
-#SNAPSHOT_ROUND="highest"
-SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
-SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
+SNAPSHOT_ROUND="highest"
+#SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
+#SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
 
 GENERIC_COPY="N"
 
@@ -88,9 +88,9 @@ parse_option() {
         if [ "$OPTARG" -gt "0" ] 2> /dev/null; then
           SNAPSHOT_ROUND=$OPTARG
         elif [ "$OPTARG" == "highest" ]; then
-          #SNAPSHOT_ROUND=$OPTARG
-		  SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
-		  SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
+          SNAPSHOT_ROUND=$OPTARG
+		  #SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
+		  #SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
         else
           echo "Snapshot flag must be a greater than 0 or set to highest"
           exit 1
