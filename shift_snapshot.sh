@@ -41,6 +41,7 @@ DAYS_TO_KEEP="7"
 SNAPSHOT_ROUND="highest"
 #SNAPSHOT_ROUND=$(psql -d $SOURCE_DB_NAME -t -A -c 'SELECT "round" FROM mem_round GROUP BY "round"')
 #SNAPSHOT_ROUND=$(expr $SNAPSHOT_ROUND - 1)
+#
 
 GENERIC_COPY="N"
 
